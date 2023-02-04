@@ -291,3 +291,70 @@ document.getElementById("clear")
             localStorage.setItem('portion', portion);
         }
     });
+
+
+//Favourite
+let inputArea = document.getElementById("inputArea");
+let submit = document.getElementById("submit");
+inputArea.classList.add("displayNone");
+submit.classList.add("displayNone");
+
+document.getElementById("favourite").addEventListener("click", function(){
+
+    inputArea.classList.toggle("displayNone");
+    submit.classList.toggle("displayNone");
+});
+
+
+setInterval(checkCarbs, 500);
+
+function checkCarbs() {
+    if(document.getElementById("carbs").innerHTML===""){
+        document.getElementById("favourite").disabled = true;
+        inputArea.classList.add("displayNone");
+        submit.classList.add("displayNone");
+    }
+    else{
+        document.getElementById("favourite").disabled = false;
+    }
+}
+
+
+let favArray= {};
+let list = document.getElementById("list");
+document.getElementById("submit").addEventListener("click", function(){
+    if(document.getElementById("inputArea").value!=="") {
+        favArray[document.getElementById("inputArea").value] = carbs;
+
+
+
+
+            const para = document.createElement("p");
+            const node = document.createTextNode(carbs + " " + document.getElementById("inputArea").value);
+            para.appendChild(node);
+
+            const element = document.getElementById("favScreen");
+            element.appendChild(para);
+
+            //console.log(key + " " + favArray[key]);
+        document.getElementById("inputArea").value="";
+
+    }
+
+});
+
+
+//TABS
+let homeScreen = document.getElementById("homeScreen");
+let favScreen = document.getElementById("favScreen");
+favScreen.classList.add("displayNone");
+document.getElementById("favList").addEventListener("click", function(){
+    favScreen.classList.remove("displayNone");
+    homeScreen.classList.add("displayNone");
+
+});
+document.getElementById("home").addEventListener("click", function(){
+    favScreen.classList.add("displayNone");
+    homeScreen.classList.remove("displayNone");
+
+});

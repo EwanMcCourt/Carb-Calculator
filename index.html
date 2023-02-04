@@ -13,35 +13,53 @@
 
 </head>
 <body>
-<header> <h1>Assignment 1 - Carb Calculator</h1> </header>
 
-<p name="carbs" id="carbsSelect" pattern="[0-9]{3}"> Carbs/100g:  <span id="carbs" pattern="[0-9]{3}"></span></p>
-<p name="portion" id="portionSelect"> Portion (g):  <span id="portion"></span></p>
 
-<div class = "calc">
-<button id="seven">7</button>
-<button id="eight">8</button>
-<button id="nine">9</button><br>
-<button id="four">4</button>
-<button id="five">5</button>
-<button id="six">6</button><br>
-<button id="one">1</button>
-<button id="two">2</button>
-<button id="three">3</button><br>
-<button id="clear">C</button>
-<button id="zero">0</button>
-<button id="point">.</button><br>
-<button id="calculate">=</button>
+<div id = "tabs">
+    <button id="home" ><span>Calculator</span></button><button id="favList" ><span>Favourites</span></button>
 </div>
+<div id = "homeScreen">
+
+    <p name="carbs" id="carbsSelect" pattern="[0-9]{3}"> Carbs/100g:  <span id="carbs" pattern="[0-9]{3}"></span></p>
+    <p name="portion" id="portionSelect"> Portion (g):  <span id="portion"></span></p>
+
+    <div class = "calc">
+    <button id="seven">7</button>
+    <button id="eight">8</button>
+    <button id="nine">9</button><br>
+    <button id="four">4</button>
+    <button id="five">5</button>
+    <button id="six">6</button><br>
+    <button id="one">1</button>
+    <button id="two">2</button>
+    <button id="three">3</button><br>
+    <button id="clear">C</button>
+    <button id="zero">0</button>
+    <button id="point">.</button><br>
+    <button id="calculate">=</button>
+
+    </div>
 
 
 
 
-<p> Your answer: <span id="answer">___</span>g of carbs</p>
+    <p> Your answer: <span id="answer">___</span>g of carbs</p>
 
 
 
-<p style="color: red;"> For class assessment only – Not to be used for treatment advice </p>
+
+
+    <p style = "font-size: 1rem"> Save food: </p><br>
+
+
+    <button id="favourite" ><span>☆</span></button><input type="text" id = "inputArea" name="foodname" > <button id="submit"><span>✔</span></button>
+
+</div>
+<div id = "favScreen">
+    <span id = "list">hello</span>
+</div>
+<footer><p id = "disclaimer"> For class assessment only – Not to be used for treatment advice </p></footer>
+
 <script src="index.js"></script>
 </body>
 </html>
