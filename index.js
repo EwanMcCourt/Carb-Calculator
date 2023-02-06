@@ -321,27 +321,36 @@ function checkCarbs() {
 
 
 let favArray= {};
+
+
 let list = document.getElementById("list");
+let input = document.getElementById("inputArea");
+let idCounter=0;
 document.getElementById("submit").addEventListener("click", function(){
     if(document.getElementById("inputArea").value!=="") {
-        favArray[document.getElementById("inputArea").value] = carbs;
-
-
-
-
+            favArray[input.value] = carbs;
+            console.log(favArray);
+            localStorage.getItem('para');
+            //https://www.w3schools.com/js/js_htmldom_nodes.asp
             const para = document.createElement("p");
-            const node = document.createTextNode(carbs + " " + document.getElementById("inputArea").value);
+            console.log(getKeyByValue(favArray,carbs));
+            //getKeyByValue(favArray,carbs)
+            const node = document.createTextNode(input.value);
             para.appendChild(node);
-
+            para.setAttribute("id", "fav"+idCounter.toString());
+            localStorage.setItem('para', para.toString());
             const element = document.getElementById("favScreen");
             element.appendChild(para);
-
-            //console.log(key + " " + favArray[key]);
-        document.getElementById("inputArea").value="";
+            idCounter++;
+        input.value="";
 
     }
 
 });
+//https://stackoverflow.com/questions/9907419/how-to-get-a-key-in-a-javascript-object-by-its-value
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
 
 
 //TABS
@@ -352,6 +361,18 @@ document.getElementById("favList").addEventListener("click", function(){
     favScreen.classList.remove("displayNone");
     homeScreen.classList.add("displayNone");
 
+
+
+        for(let i =0;i<Object.keys(favArray).length;i++){
+        document.getElementById("fav"+(i).toString()).addEventListener("click", function () {
+            /*console.log(Object.keys(favArray)[i]);
+            console.log(favArray[Object.keys(favArray)[i]]);*/
+            favScreen.classList.add("displayNone");
+            homeScreen.classList.remove("displayNone");
+            carbs = document.getElementById("carbs").innerHTML=favArray[Object.keys(favArray)[i]];
+            localStorage.setItem('carbs', carbs);
+        });
+    }
 });
 document.getElementById("home").addEventListener("click", function(){
     favScreen.classList.add("displayNone");
