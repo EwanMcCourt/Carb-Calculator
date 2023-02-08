@@ -263,13 +263,13 @@ document.getElementById("zero")
 document.getElementById("point")
     .addEventListener("click", event=>{
 
-        if(carbsSelected===true && pointUsedCarbs===false){
+        if(carbsSelected===true && pointUsedCarbs===false && carbs.length>0){
 
             pointUsedCarbs = true;
             carbs = document.getElementById("carbs").innerHTML=carbs+".";
             localStorage.setItem('carbs', carbs);
         }
-        if(portionSelected===true && pointUsedPortion===false){
+        if(portionSelected===true && pointUsedPortion===false && portion.length>0){
             pointUsedPortion = true;
             portion = document.getElementById("portion").innerHTML=portion+".";
             localStorage.setItem('portion', portion);
@@ -320,17 +320,36 @@ function checkCarbs() {
 }
 
 
-let favArray= {};
+
+
+let favArray={};
+if(localStorage.getItem("favArray")){
+
+
+    favArray = localStorage.getItem("favArray");
+    console.log(favArray);
+    favArray=  JSON.parse(favArray);
+    console.log(favArray);
+    }
+
+console.log(favArray);
 
 
 let list = document.getElementById("list");
 let input = document.getElementById("inputArea");
 let idCounter=0;
+const element = document.getElementById("favScreen");
+
 document.getElementById("submit").addEventListener("click", function(){
     if(document.getElementById("inputArea").value!=="") {
-            favArray[input.value] = carbs;
             console.log(favArray);
-            localStorage.getItem('para');
+            favArray[input.value] = carbs;
+
+             favArray = JSON.stringify(favArray);
+            console.log(favArray);
+            localStorage.setItem("favArray", favArray);
+            favArray = JSON.parse(favArray);
+              console.log(favArray);
             //https://www.w3schools.com/js/js_htmldom_nodes.asp
             const para = document.createElement("p");
             console.log(getKeyByValue(favArray,carbs));
@@ -338,11 +357,12 @@ document.getElementById("submit").addEventListener("click", function(){
             const node = document.createTextNode(input.value);
             para.appendChild(node);
             para.setAttribute("id", "fav"+idCounter.toString());
-            localStorage.setItem('para', para.toString());
-            const element = document.getElementById("favScreen");
+
+
             element.appendChild(para);
             idCounter++;
         input.value="";
+
 
     }
 
@@ -356,12 +376,14 @@ function getKeyByValue(object, value) {
 //TABS
 let homeScreen = document.getElementById("homeScreen");
 let favScreen = document.getElementById("favScreen");
+let searchScreen = document.getElementById("searchScreen");
 favScreen.classList.add("displayNone");
+searchScreen.classList.add("displayNone");
 document.getElementById("favList").addEventListener("click", function(){
     favScreen.classList.remove("displayNone");
     homeScreen.classList.add("displayNone");
-
-
+    searchScreen.classList.add("displayNone");
+    console.log(favArray);
 
         for(let i =0;i<Object.keys(favArray).length;i++){
         document.getElementById("fav"+(i).toString()).addEventListener("click", function () {
@@ -369,6 +391,7 @@ document.getElementById("favList").addEventListener("click", function(){
             console.log(favArray[Object.keys(favArray)[i]]);*/
             favScreen.classList.add("displayNone");
             homeScreen.classList.remove("displayNone");
+            searchScreen.classList.add("displayNone");
             carbs = document.getElementById("carbs").innerHTML=favArray[Object.keys(favArray)[i]];
             localStorage.setItem('carbs', carbs);
         });
@@ -377,5 +400,12 @@ document.getElementById("favList").addEventListener("click", function(){
 document.getElementById("home").addEventListener("click", function(){
     favScreen.classList.add("displayNone");
     homeScreen.classList.remove("displayNone");
+    searchScreen.classList.add("displayNone");
+
+});
+document.getElementById("search").addEventListener("click", function(){
+    favScreen.classList.add("displayNone");
+    homeScreen.classList.add("displayNone");
+    searchScreen.classList.remove("displayNone");
 
 });
