@@ -321,7 +321,7 @@ function checkCarbs() {
 
 
 
-
+// localStorage.clear();
 let favArray={};
 if(localStorage.getItem("favArray")){
 
@@ -335,11 +335,22 @@ if(localStorage.getItem("favArray")){
 console.log(favArray);
 
 
-let list = document.getElementById("list");
 let input = document.getElementById("inputArea");
 let idCounter=0;
 const element = document.getElementById("favScreen");
 
+for(let i =0;i<Object.keys(favArray).length;i++){
+    const para = document.createElement("p");
+    console.log(getKeyByValue(favArray,carbs));
+    //getKeyByValue(favArray,carbs)
+    const node = document.createTextNode(Object.keys(favArray)[i]);
+    para.appendChild(node);
+    para.setAttribute("id", "fav"+idCounter.toString());
+
+
+    element.appendChild(para);
+    idCounter++;
+}
 document.getElementById("submit").addEventListener("click", function(){
     if(document.getElementById("inputArea").value!=="") {
             console.log(favArray);
@@ -408,4 +419,48 @@ document.getElementById("search").addEventListener("click", function(){
     homeScreen.classList.add("displayNone");
     searchScreen.classList.remove("displayNone");
 
+});
+
+// let searchInput = document.getElementById("searchInput");
+// //Search Bar
+// document.getElementById("searchButton").addEventListener("click", function(){
+//     fetch(`https://devweb2022.cis.strath.ac.uk/~aes02112/food/?s=${searchInput}`);
+//     console.log(fetch(`https://devweb2022.cis.strath.ac.uk/~aes02112/food/?s=${searchInput}`));
+// });
+
+
+const searchInput = document.getElementById("searchInput");
+const searchButton = document.getElementById("searchButton");
+const resultsArea = document.getElementById("resultsArea");
+const savedItemsList = document.getElementById("savedItemsList");
+
+searchButton.addEventListener("click", function() {
+
+    fetch(`https://devweb2022.cis.strath.ac.uk/~aes02112/food/?s=${searchInput.value}`)
+        .then(response => response.json())
+        .then(data => {
+            resultsArea.innerHTML = "";
+            data.forEach(item => {
+                const paraAllDetails = document.createElement("p");
+                const paraJustName = document.createElement("p");
+                paraAllDetails.setAttribute("style", "border-top: 8px solid mediumpurple;border-radius: 0.3rem; border-bottom: 8px solid mediumpurple;border-radius: 0.3rem;");
+                paraAllDetails.innerHTML = `${item.name} - ${item.carbsper100g}g (carbs/100g)`;
+                paraAllDetails.addEventListener("click", function() {
+                    favArray[item.name] = ((item.carbsper100g).toFixed(2)).toString();
+                    favArray = JSON.stringify(favArray);
+                    console.log(favArray);
+                    localStorage.setItem("favArray", favArray);
+                    favArray = JSON.parse(favArray);
+                    const node = document.createTextNode(item.name);
+                    paraJustName.appendChild(node);
+                    paraJustName.setAttribute("id", "fav"+idCounter.toString());
+
+                    element.appendChild(paraJustName);
+                    resultsArea.removeChild(paraAllDetails);
+                    idCounter++;
+
+                });
+                resultsArea.appendChild(paraAllDetails);
+            });
+        });
 });
