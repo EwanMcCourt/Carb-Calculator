@@ -345,12 +345,14 @@ if(localStorage.getItem("favArray")){
 
 
     favArray = localStorage.getItem("favArray");
-    console.log(favArray);
+
     favArray=  JSON.parse(favArray);
-    console.log(favArray);
+
     }
 
-console.log(favArray);
+
+
+
 
 
 let input = document.getElementById("inputArea");
@@ -359,8 +361,8 @@ const element = document.getElementById("favScreen");
 
 for(let i =0;i<Object.keys(favArray).length;i++){
     const para = document.createElement("p");
-    console.log(getKeyByValue(favArray,carbs));
-    //getKeyByValue(favArray,carbs)
+
+
     const node = document.createTextNode(Object.keys(favArray)[i]);
     para.appendChild(node);
     para.setAttribute("id", "fav"+idCounter.toString());
@@ -372,17 +374,17 @@ for(let i =0;i<Object.keys(favArray).length;i++){
 document.getElementById("submit").addEventListener("click", function(){
     if(document.getElementById("inputArea").value!=="") {
         if(!(input.value in favArray)){
-            console.log(favArray);
+
             favArray[input.value] = carbs;
 
              favArray = JSON.stringify(favArray);
-            console.log(favArray);
+
             localStorage.setItem("favArray", favArray);
             favArray = JSON.parse(favArray);
-            console.log(favArray);
+
             //https://www.w3schools.com/js/js_htmldom_nodes.asp
             const para = document.createElement("p");
-            console.log(getKeyByValue(favArray,carbs));
+
             //getKeyByValue(favArray,carbs)
             const node = document.createTextNode(input.value);
             para.appendChild(node);
@@ -414,12 +416,11 @@ document.getElementById("favList").addEventListener("click", function(){
     favScreen.classList.remove("displayNone");
     homeScreen.classList.add("displayNone");
     searchScreen.classList.add("displayNone");
-    console.log(favArray);
+
 
         for(let i =0;i<Object.keys(favArray).length;i++){
         document.getElementById("fav"+(i).toString()).addEventListener("click", function () {
-            /*console.log(Object.keys(favArray)[i]);
-            console.log(favArray[Object.keys(favArray)[i]]);*/
+
             favScreen.classList.add("displayNone");
             homeScreen.classList.remove("displayNone");
             searchScreen.classList.add("displayNone");
@@ -471,7 +472,7 @@ searchButton.addEventListener("click", function() {
                 resultsArea.innerHTML = "";
                 resultsArea.classList.remove("displayNone");
                 if (searchInput.value !== "") {
-                    console.log("HI");
+
                     cancelButton.classList.remove("displayNone");
                 }
 
@@ -485,7 +486,7 @@ searchButton.addEventListener("click", function() {
                         if (!(item.name in favArray)) {
                             favArray[item.name] = ((item.carbsper100g).toFixed(2)).toString();
                             favArray = JSON.stringify(favArray);
-                            console.log(favArray);
+
                             localStorage.setItem("favArray", favArray);
                             favArray = JSON.parse(favArray);
                             const node = document.createTextNode(item.name);
@@ -509,5 +510,5 @@ cancelButton.addEventListener("click", function() {
     searchInput.innerHTML = "";
     resultsArea.classList.add("displayNone");
     cancelButton.classList.add("displayNone");
-    console.log("HI");
+
 });
