@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
-
-    <meta charset="UTF-8">
-
-    <title>Assignment 1</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+
+
+
+    <title>Assignment 1</title>
+    <link rel = "apple-touch-icon" type="image/x-icon" sizes="128x128" href ="calc.png">
+    <link rel= "icon" type="image/x-icon" sizes="128x128" href = "calc.png" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
 
 </head>
 <body>
@@ -44,8 +48,8 @@
 
     <p> Your answer: <span id="answer">___</span>g of carbs</p>
 
-
-
+    <div id="status" class="online"> ONLINE </div>
+    <p> Toggle your network connection to see the effect </p>
 
 
     <p style = "font-size: 1rem"> Save food: </p><br>
@@ -58,9 +62,10 @@
     <h2>Favourites</h2>
 </div>
 <div id = "searchScreen">
-
-    <input type="text" id="searchInput" name="searchInput" placeholder="Search for foods..">
-    <button id="searchButton">🔍</button>
+    <p id = "offlineMessage"> Search not available when offline</p>
+    <div id = "searchBar">
+    <button id="cancelButton">❌</button><input type="text" id="searchInput" name="searchInput" placeholder="Search for foods..">
+    <button id="searchButton">🔍</button></div>
     <div id="resultsArea"></div>
 
 </div>

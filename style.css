@@ -166,20 +166,46 @@ button:focus {
 }
 
 #searchInput{
-    width: 75%;
+    width: 70%;
     text-align: center;
     margin-top: 5rem;
     border: 2px solid coral;
-    height: 1.25rem;
-    border-bottom-left-radius: 12px;
-    border-top-left-radius: 12px;
+    height: 100%;
+
 }
 #searchButton{
     border-bottom-right-radius: 12px;
     border-top-right-radius: 12px;
     text-align: center;
     margin-top: 5rem;
+    margin-right:0.5rem;
     border: 2px solid coral;
-    height: 1.45rem;
+    height: 100%;
+}
+#cancelButton{
+    border-bottom-left-radius: 12px;
+    border-top-left-radius: 12px;
+    text-align: center;
+    margin-top: 5rem;
+    border: 2px solid coral;
+    height: 100%;
+    margin-right:0.2rem;
+
 }
 
+
+
+/*#status {*/
+/*    width: 100%;*/
+/*    font: bold 1em sans-serif;*/
+/*    color: #FFF;*/
+/*    padding: 0.5em;*/
+/*}*/
+
+/*.online {*/
+/*    background: green;*/
+/*}*/
+
+/*.offline {*/
+/*    background: red;*/
+/*}*/

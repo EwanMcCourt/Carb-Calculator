@@ -1,5 +1,23 @@
 'use strict';
 
+//Service worker
+
+
+if ('serviceWorker' in navigator) {
+    console.log('CLIENT: service worker registration in progress.');
+    navigator.serviceWorker.register('/~vib20137/MobileAppDevelopment/service-worker.js').then(function() {
+        console.log('CLIENT: service worker registration complete.');
+    }, function() {
+        console.log('CLIENT: service worker registration failure.');
+
+    });
+} else {
+    console.log('CLIENT: service worker is not supported.');
+}
+
+
+
+
 let carbs = document.getElementById("carbs").innerHTML ="";
 let portion = document.getElementById("portion").innerHTML ="";
 let answer = document.getElementById("answer");
@@ -414,10 +432,23 @@ document.getElementById("home").addEventListener("click", function(){
     searchScreen.classList.add("displayNone");
 
 });
+
+let searchBar = document.getElementById("searchBar");
+let offlineMessage = document.getElementById("offlineMessage");
 document.getElementById("search").addEventListener("click", function(){
     favScreen.classList.add("displayNone");
     homeScreen.classList.add("displayNone");
     searchScreen.classList.remove("displayNone");
+    cancelButton.classList.add("displayNone");
+
+        if (navigator.onLine) {
+
+            searchBar.classList.remove("displayNone");
+            offlineMessage.classList.add("displayNone");
+        } else {
+            searchBar.classList.add("displayNone");
+            offlineMessage.classList.remove("displayNone");
+        }
 
 });
 
@@ -433,6 +464,7 @@ const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 const resultsArea = document.getElementById("resultsArea");
 const savedItemsList = document.getElementById("savedItemsList");
+const cancelButton = document.getElementById("cancelButton");
 
 searchButton.addEventListener("click", function() {
 
@@ -440,6 +472,13 @@ searchButton.addEventListener("click", function() {
         .then(response => response.json())
         .then(data => {
             resultsArea.innerHTML = "";
+            resultsArea.classList.remove("displayNone");
+            if(searchInput.value !== ""){
+                console.log("HI");
+                cancelButton.classList.remove("displayNone");
+            }
+
+
             data.forEach(item => {
                 const paraAllDetails = document.createElement("p");
                 const paraJustName = document.createElement("p");
@@ -463,4 +502,13 @@ searchButton.addEventListener("click", function() {
                 resultsArea.appendChild(paraAllDetails);
             });
         });
+});
+
+
+cancelButton.addEventListener("click", function() {
+    searchInput.value = "";
+    searchInput.innerHTML = "";
+    resultsArea.classList.add("displayNone");
+    cancelButton.classList.add("displayNone");
+    console.log("HI");
 });
