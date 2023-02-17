@@ -139,10 +139,6 @@ button:focus {
     transition-duration: 0.3s;
 }
 
-#tabs{
-
-}
-
 #home{
     border-bottom-left-radius: 12px;
 }
@@ -166,7 +162,7 @@ button:focus {
 }
 
 #searchInput{
-    width: 70%;
+    width: 60%;
     text-align: center;
     margin-top: 5rem;
     border: 2px solid coral;
@@ -178,7 +174,7 @@ button:focus {
     border-top-right-radius: 12px;
     text-align: center;
     margin-top: 5rem;
-    margin-right:0.5rem;
+
     border: 2px solid coral;
     height: 100%;
 }
@@ -189,23 +185,6 @@ button:focus {
     margin-top: 5rem;
     border: 2px solid coral;
     height: 100%;
-    margin-right:0.2rem;
+
 
 }
-
-
-
-/*#status {*/
-/*    width: 100%;*/
-/*    font: bold 1em sans-serif;*/
-/*    color: #FFF;*/
-/*    padding: 0.5em;*/
-/*}*/
-
-/*.online {*/
-/*    background: green;*/
-/*}*/
-
-/*.offline {*/
-/*    background: red;*/
-/*}*/

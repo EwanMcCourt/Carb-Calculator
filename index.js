@@ -32,7 +32,7 @@ if(localStorage.getItem('portion')) {
 }
 
 
-//event listeners
+
 let carbsListener = document.getElementById("carbsSelect");
 carbsListener.classList.add("selected");
 let portionListener = document.getElementById("portionSelect");
@@ -371,6 +371,7 @@ for(let i =0;i<Object.keys(favArray).length;i++){
 }
 document.getElementById("submit").addEventListener("click", function(){
     if(document.getElementById("inputArea").value!=="") {
+        if(!(input.value in favArray)){
             console.log(favArray);
             favArray[input.value] = carbs;
 
@@ -378,7 +379,7 @@ document.getElementById("submit").addEventListener("click", function(){
             console.log(favArray);
             localStorage.setItem("favArray", favArray);
             favArray = JSON.parse(favArray);
-              console.log(favArray);
+            console.log(favArray);
             //https://www.w3schools.com/js/js_htmldom_nodes.asp
             const para = document.createElement("p");
             console.log(getKeyByValue(favArray,carbs));
@@ -390,8 +391,9 @@ document.getElementById("submit").addEventListener("click", function(){
 
             element.appendChild(para);
             idCounter++;
-        input.value="";
 
+        input.value="";
+        }
 
     }
 
@@ -452,12 +454,7 @@ document.getElementById("search").addEventListener("click", function(){
 
 });
 
-// let searchInput = document.getElementById("searchInput");
-// //Search Bar
-// document.getElementById("searchButton").addEventListener("click", function(){
-//     fetch(`https://devweb2022.cis.strath.ac.uk/~aes02112/food/?s=${searchInput}`);
-//     console.log(fetch(`https://devweb2022.cis.strath.ac.uk/~aes02112/food/?s=${searchInput}`));
-// });
+
 
 
 const searchInput = document.getElementById("searchInput");
@@ -467,41 +464,43 @@ const savedItemsList = document.getElementById("savedItemsList");
 const cancelButton = document.getElementById("cancelButton");
 
 searchButton.addEventListener("click", function() {
+    if(((searchInput.value).length>4)) {
+        fetch(`https://devweb2022.cis.strath.ac.uk/~aes02112/food/?s=${searchInput.value}`)
+            .then(response => response.json())
+            .then(data => {
+                resultsArea.innerHTML = "";
+                resultsArea.classList.remove("displayNone");
+                if (searchInput.value !== "") {
+                    console.log("HI");
+                    cancelButton.classList.remove("displayNone");
+                }
 
-    fetch(`https://devweb2022.cis.strath.ac.uk/~aes02112/food/?s=${searchInput.value}`)
-        .then(response => response.json())
-        .then(data => {
-            resultsArea.innerHTML = "";
-            resultsArea.classList.remove("displayNone");
-            if(searchInput.value !== ""){
-                console.log("HI");
-                cancelButton.classList.remove("displayNone");
-            }
 
+                data.forEach(item => {
+                    const paraAllDetails = document.createElement("p");
+                    const paraJustName = document.createElement("p");
+                    paraAllDetails.setAttribute("style", "border-top: 8px solid mediumpurple;border-radius: 0.3rem; border-bottom: 8px solid mediumpurple;border-radius: 0.3rem;");
+                    paraAllDetails.innerHTML = `${item.name} - ${item.carbsper100g}g (carbs/100g)`;
+                    paraAllDetails.addEventListener("click", function () {
+                        if (!(item.name in favArray)) {
+                            favArray[item.name] = ((item.carbsper100g).toFixed(2)).toString();
+                            favArray = JSON.stringify(favArray);
+                            console.log(favArray);
+                            localStorage.setItem("favArray", favArray);
+                            favArray = JSON.parse(favArray);
+                            const node = document.createTextNode(item.name);
+                            paraJustName.appendChild(node);
+                            paraJustName.setAttribute("id", "fav" + idCounter.toString());
 
-            data.forEach(item => {
-                const paraAllDetails = document.createElement("p");
-                const paraJustName = document.createElement("p");
-                paraAllDetails.setAttribute("style", "border-top: 8px solid mediumpurple;border-radius: 0.3rem; border-bottom: 8px solid mediumpurple;border-radius: 0.3rem;");
-                paraAllDetails.innerHTML = `${item.name} - ${item.carbsper100g}g (carbs/100g)`;
-                paraAllDetails.addEventListener("click", function() {
-                    favArray[item.name] = ((item.carbsper100g).toFixed(2)).toString();
-                    favArray = JSON.stringify(favArray);
-                    console.log(favArray);
-                    localStorage.setItem("favArray", favArray);
-                    favArray = JSON.parse(favArray);
-                    const node = document.createTextNode(item.name);
-                    paraJustName.appendChild(node);
-                    paraJustName.setAttribute("id", "fav"+idCounter.toString());
-
-                    element.appendChild(paraJustName);
-                    resultsArea.removeChild(paraAllDetails);
-                    idCounter++;
-
+                            element.appendChild(paraJustName);
+                            resultsArea.removeChild(paraAllDetails);
+                            idCounter++;
+                        }
+                    });
+                    resultsArea.appendChild(paraAllDetails);
                 });
-                resultsArea.appendChild(paraAllDetails);
             });
-        });
+    }
 });
 
 
